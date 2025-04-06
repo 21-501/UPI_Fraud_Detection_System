@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Transaction Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-blue-800 text-white py-4 px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Enter Transaction Details</h1>
+        <a href="/" class="bg-white text-blue-800 font-medium px-4 py-1.5 rounded hover:bg-gray-100 transition text-sm">
+            ← Back to Home
+        </a>
+    </header>
+
+    <!-- Main Section -->
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto mt-10 p-8 bg-white rounded-xl shadow-md">
+            {% if prediction_text %}
+                <!-- Result Page -->
+                <div class="text-center">
+                    <div class="text-2xl text-white bg-blue-600 rounded p-4 mb-6 font-semibold shadow">
+                        {{ prediction_text }}
+                    </div>
+                    <div class="text-left text-gray-800 text-sm mb-6">
+                        <ul class="list-disc ml-6">
+                            <li>Name: {{ name }}</li>
+                            <li>Step: {{ step }}</li>
+                            <li>Type: {{ trans_type }}</li>
+                            <li>Amount: {{ amount }}</li>
+                            <li>Old Balance Origin: {{ oldbalanceOrg }}</li>
+                            <li>New Balance Origin: {{ newbalanceOrig }}</li>
+                            <li>Old Balance Dest: {{ oldbalanceDest }}</li>
+                            <li>New Balance Dest: {{ newbalanceDest }}</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <a href="/predict" class="inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+                            Check Another Transaction
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Form Page -->
+                <form method="POST">
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Left side fields -->
+                        <div>
+                            <label class="block text-gray-700 mb-1 font-medium">Name</label>
+                            <input type="text" name="name" placeholder="Enter your name" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">Step (e.g., time)</label>
+                            <input type="number" name="step" placeholder="Enter Step" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">Amount</label>
+                            <input type="text" name="amount" placeholder="Enter Amount" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">Type</label>
+                            <select name="type" required class="w-full p-2 border rounded">
+                                <option value="">Select Type</option>
+                                <option value="CASH_IN">CASH_IN</option>
+                                <option value="CASH_OUT">CASH_OUT</option>
+                                <option value="DEBIT">DEBIT</option>
+                                <option value="PAYMENT">PAYMENT</option>
+                                <option value="TRANSFER">TRANSFER</option>
+                            </select>
+                        </div>
+
+                        <!-- Right side fields (Balance info only) -->
+                        <div>
+                            <label class="block text-gray-700 mb-1 font-medium">Old Balance Origin</label>
+                            <input type="text" name="oldbalanceOrg" placeholder="Enter Old Balance Origin" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">New Balance Origin</label>
+                            <input type="text" name="newbalanceOrig" placeholder="Enter New Balance Origin" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">Old Balance Dest</label>
+                            <input type="text" name="oldbalanceDest" placeholder="Enter Old Balance Dest" required class="w-full p-2 border rounded">
+
+                            <label class="block text-gray-700 mb-1 mt-4 font-medium">New Balance Dest</label>
+                            <input type="text" name="newbalanceDest" placeholder="Enter New Balance Dest" required class="w-full p-2 border rounded">
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="text-center mt-8">
+                        <button type="reset" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition mr-4">Reset</button>
+                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">Predict</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white text-center py-4 text-sm mt-10 w-full fixed bottom-0">
+        By Project Batch 14 – 2025
+    </footer>
+</body>
+</html>
